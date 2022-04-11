@@ -49,9 +49,9 @@ const (
 	CLUSTER_EKS_ADMIN_GROUP             = "system:masters"
 	EC2_EKS_BOOSTRAPPERS_GROUP          = "system:bootstrappers"
 	EC2_EKS_NODES_GROUP                 = "system:nodes"
-	APPHOSTING_CONSUMER_ROLE_PREFIX     = "apphosting-consumer-role-for-ns"
-	APPHOSTING_CONSUMER_READONLY_ROLE   = "apphosting-consumer-cluster-role"
-	APPHOSTING_CONSUMER_EDIT_ROLE       = "apphosting-edit-cluster-role"
+	APPHOSTING_CONSUMER_ROLE_PREFIX     = "application-adm-role-for-ns"
+	APPHOSTING_CONSUMER_READONLY_ROLE   = "application-ro-cluster-role"
+	APPHOSTING_CONSUMER_EDIT_ROLE       = "application-edit-cluster-role"
 	APPHOSTING_SYSTEM_EDIT_CLUSTER_ROLE = "system:aggregate-to-edit"
 )
 
