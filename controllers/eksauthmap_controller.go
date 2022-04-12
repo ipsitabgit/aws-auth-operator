@@ -61,7 +61,7 @@ type EksAuthMapReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-func IsValidCategory(g string) bool {
+func IsCustomGroup(g string) bool {
 	switch g {
 	case
 		CLUSTER_ADMIN,
@@ -69,9 +69,9 @@ func IsValidCategory(g string) bool {
 		EC2_NODE,
 		WRITE_ONLY,
 		NS_ADMIN:
-		return true
+		return false
 	}
-	return false
+	return true
 }
 func IsValidType(g string) bool {
 	switch g {
@@ -257,11 +257,11 @@ func (r *EksAuthMapReconciler) Reconcile(ctx context.Context, req ctrl.Request) 
 			return ctrl.Result{Requeue: true}, err
 		}
 		for _, g := range cd.Groups {
-			/*if !IsValidCategory(g) {
-				ctrl.Log.Error(err, "Invalid Groups added, check the documentation for valid groups", "Namespace", "", "Name", "")
-				return ctrl.Result{Requeue: true}, err
-			}*/
-			log.Print("RECONCILER: VALIDATED GROUPS FROM ALLOWED LIST")
+
+			log.Print("RECONCILER: VALIDATED GROUPS FROM GIVEN LIST")
+			if IsCustomGroup(g) {
+				grps = append(grps, g)
+			}
 			if g == CLUSTER_ADMIN {
 				grps = append(grps, CLUSTER_EKS_ADMIN_GROUP)
 			}
@@ -323,9 +323,7 @@ func (r *EksAuthMapReconciler) Reconcile(ctx context.Context, req ctrl.Request) 
 				}
 				grps = append(grps, APPHOSTING_CONSUMER_EDIT_ROLE)
 			}
-			if len(grps) == 0 {
-				grps = append(grps, g)
-			}
+
 		}
 		if cd.Type == ROLE {
 			match = false

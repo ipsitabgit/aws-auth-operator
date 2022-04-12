@@ -2,20 +2,16 @@
 
 This is a custom K8s operator which helps manage updates to the "aws-auth" config map in AWS EKS.
 
-## Architecture and Basic Flow
-
-[Reference](TODO-DIAGRAM)
 
 ## Quick Start
-(TODO : Build and push the image to Docker Hub)
 (TODO : Helm chart doc)
-- Execute `kubectl apply -f deploy-manifests/manifests.yaml`. This would deploy the following:
+- Execute `kubectl apply -f samples/manifests.yaml`. This would deploy the following:
   - namespace
   - crd
   - service account
   - rbac resources
   - deployment
-- Run `kubectl get po -n aws-auth-controller-system` , Should see the workload running
+- Run `kubectl get po -n aws-auth-operator-system` , Should see the workload running
     
     ```
     NAME                                                     READY   STATUS    RESTARTS   AGE
@@ -23,30 +19,69 @@ This is a custom K8s operator which helps manage updates to the "aws-auth" confi
 
     ```
 
-- Once the controller starts running , execute `kubectl apply -f sample2.yaml` . This deploys the `EksAuthMap` custom resource 
+- Once the controller starts running , execute `kubectl apply -f samples/sample.yaml` . This deploys the `EksAuthMap` custom resource 
 - Check the logs of the controller and should see the reconcile operation
 
   ```
-    2022/01/18 10:38:37 RECONCILING AWS AUTH CONTROLLER
-    2022/01/18 10:38:37 false
-    2022/01/18 10:38:37 RECONCILER: FETCHING EXISTING aws-auth CONFIGMAP
-    2022/01/18 10:38:37 RECONCILER: Unmarshalling aws-auth CONFIGMAP
-    2022/01/18 10:38:37 [{arn:aws:iam::849180847351:role/dummy-jet-eks-role1 dumy-jet-eks role [ADMIN] []} {arn:aws:iam::849180847351:role/dummy-jet-eks-role3 dumy-jet-eks-my3 role [ADMIN NODE] []} {arn:aws:iam::849180847351:role/dummy-jet-eks-role4 dumy-jet-eks-my4 role [READONLY] []} {arn:aws:iam::849180847351:role/dummy-jet-eks-role5 dumy-jet-eks-my5 role [NSADMIN] [ns1 ns2 ns3]} {arn:aws:iam::849180847351:user/galaxy-automation-user galaxy-automation user [NODE] []}]
-    2022/01/18 10:38:37 RECONCILER: ITERATING THROUGH ALL THE RBAC CONFIGS
-    2022/01/18 10:38:37 ARN: arn:aws:iam::849180847351:role/dummy-jet-eks-role1 ~ User: dumy-jet-eks
-    2022/01/18 10:38:37 RECONCILER: VALIDATED GROUPS FROM ALLOWED LIST
-    2022/01/18 10:38:37 RECONCILER: Adding provided roles to mapRoles
-    2022/01/18 10:38:37 ARN: arn:aws:iam::849180847351:role/dummy-jet-eks-role3 ~ User: dumy-jet-eks-my3
-    2022/01/18 10:38:37 RECONCILER: VALIDATED GROUPS FROM ALLOWED LIST
-    2022/01/18 10:38:37 RECONCILER: VALIDATED GROUPS FROM ALLOWED LIST
-    2022/01/18 10:38:37 RECONCILER: Adding provided roles to mapRoles
-    .....
-    2022/01/18 10:38:38 RECONCILER: Adding provided roles to mapRoles
-    2022/01/18 10:38:38 ARN: arn:aws:iam::849180847351:user/galaxy-automation-user ~ User: galaxy-automation
-    2022/01/18 10:38:38 RECONCILER: VALIDATED GROUPS FROM ALLOWED LIST
-    2022/01/18 10:38:38 RECONCILER: Adding provided users to mapUsers
-    2022/01/18 10:38:38 RECONCILER: Marshalling back mapRoles and mapUsers
-    2022/01/18 10:38:38 RECONCILER: Updating aws-auth Config Map
+    2022/04/12 07:47:32 RECONCILING AWS AUTH CONTROLLER
+    2022/04/12 07:47:32 false
+    2022/04/12 07:47:32 RECONCILER: FETCHING EXISTING aws-auth CONFIGMAP
+    2022/04/12 07:47:32 RECONCILER: Unmarshalling aws-auth CONFIGMAP
+    2022/04/12 07:47:32 [{arn:aws:iam::849180847351:role/sre-role sre-cluster-admin role [ADMIN] []} {arn:aws:iam::849180847351:role/hsre-role hsre-cluster-role role [READONLY] []} {arn:aws:iam::849180847351:role/cd-jenkins-role cd-jenkins role [ADMIN] []} {arn:aws:iam::849180847351:role/app-dev app-dev role [NSADMIN READONLY] [web app]} {arn:aws:iam::849180847351:role/app-architects architects role [WRITE group2] []} {arn:aws:iam::849180847351:user/ops-user ops-user user [ADMIN] []} {arn:aws:iam::849180847351:user/ops-user ops-user user [my-custom-group group2] []}]
+    2022/04/12 07:47:32 RECONCILER: ITERATING THROUGH ALL THE RBAC CONFIGS
+    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:role/sre-role ~ UserName: sre-cluster-admin
+    2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
+    2022/04/12 07:47:32 RECONCILER: Adding provided roles to mapRoles
+    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:role/hsre-role ~ UserName: hsre-cluster-role
+    2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
+    2022/04/12 07:47:32 createClusterRole: Creating the ClusterRole:application-ro-cluster-role
+    2022/04/12 07:47:32 clusterroles.rbac.authorization.k8s.io "application-ro-cluster-role" already exists
+    2022/04/12 07:47:32 createClusterRoleBinding: Creating the clusterrolebinding:application-ro-cluster-role-binding
+    2022/04/12 07:47:32 clusterroles.rbac.authorization.k8s.io "application-ro-cluster-role" already exists
+    2022/04/12 07:47:32 RECONCILER: Adding provided roles to mapRoles
+    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:role/cd-jenkins-role ~ UserName: cd-jenkins
+    2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
+    2022/04/12 07:47:32 RECONCILER: Adding provided roles to mapRoles
+    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:role/app-dev ~ UserName: app-dev
+    2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
+    2022/04/12 07:47:32 Reconcile: Creating Provided Namespaces
+    2022/04/12 07:47:32 createNamespace: Creating the namespace:web
+    2022/04/12 07:47:32 namespaces "web" already exists
+    2022/04/12 07:47:32 createRole: Creating the Role:application-adm-role-for-ns-web
+    2022/04/12 07:47:32 roles.rbac.authorization.k8s.io "application-adm-role-for-ns-web" already exists
+    2022/04/12 07:47:32 createrRoleBinding: Creating the rolebinding:application-adm-role-for-ns-web-binding
+    2022/04/12 07:47:32 rolebindings.rbac.authorization.k8s.io "application-adm-role-for-ns-web-binding" already exists
+    2022/04/12 07:47:32 createNamespace: Creating the namespace:app
+    2022/04/12 07:47:32 namespaces "app" already exists
+    2022/04/12 07:47:32 createRole: Creating the Role:application-adm-role-for-ns-app
+    2022/04/12 07:47:32 roles.rbac.authorization.k8s.io "application-adm-role-for-ns-app" already exists
+    2022/04/12 07:47:32 createrRoleBinding: Creating the rolebinding:application-adm-role-for-ns-app-binding
+    2022/04/12 07:47:32 rolebindings.rbac.authorization.k8s.io "application-adm-role-for-ns-app-binding" already exists
+    2022/04/12 07:47:32 createRole: Creating the Role:application-adm-role-for-ns-default
+    2022/04/12 07:47:32 roles.rbac.authorization.k8s.io "application-adm-role-for-ns-default" already exists
+    2022/04/12 07:47:32 createrRoleBinding: Creating the rolebinding:application-adm-role-for-ns-default-binding
+    2022/04/12 07:47:32 rolebindings.rbac.authorization.k8s.io "application-adm-role-for-ns-default-binding" already exists
+    2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
+    2022/04/12 07:47:32 createClusterRole: Creating the ClusterRole:application-ro-cluster-role
+    2022/04/12 07:47:32 clusterroles.rbac.authorization.k8s.io "application-ro-cluster-role" already exists
+    2022/04/12 07:47:32 createClusterRoleBinding: Creating the clusterrolebinding:application-ro-cluster-role-binding
+    2022/04/12 07:47:32 clusterroles.rbac.authorization.k8s.io "application-ro-cluster-role" already exists
+    2022/04/12 07:47:32 RECONCILER: Adding provided roles to mapRoles
+    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:role/app-architects ~ UserName: architects
+    2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
+    2022/04/12 07:47:32 createClusterRoleBinding: Creating the clusterrolebinding:application-edit-cluster-role-binding
+    2022/04/12 07:47:32 <nil>
+    2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
+    2022/04/12 07:47:32 RECONCILER: Adding provided roles to mapRoles
+    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:user/ops-user ~ UserName: ops-user
+    2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
+    2022/04/12 07:47:32 RECONCILER: Adding provided users to mapUsers
+    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:user/ops-user ~ UserName: ops-user
+    2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
+    2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
+    2022/04/12 07:47:32 RECONCILER: Adding provided users to mapUsers
+    2022/04/12 07:47:32 RECONCILER: Marshalling back mapRoles and mapUsers
+    2022/04/12 07:47:32 RECONCILER: Updating aws-auth Config Map
 
   ```
 - Check the configMap if its updated - `kubectl edit cm aws-auth -n kube-system`  
@@ -81,17 +116,19 @@ If none provided, then it would assume that access is only needed for `default` 
 
 `WRITE` - This will allow users/roles to have the edit access on the K8s cluster resources.
 
+> You can provide your own custom groups if the above does not meet your requirements
+
 ## Developer Notes:
 
 - Clone the repo locally
-- Run the command - `make docker-build docker-push IMG=<YOUR_REPO>/rbac_op:<YOUR_TAG>`
+- Run the command - `make docker-build docker-push IMG=<YOUR_REPO>/aws-auth-operator:<YOUR_TAG>`
 - This would build and push the container image to the mentioned repository
-- To deploy , execute - `make deploy IMG=<YOUR_REPO>/rbac_op:<YOUR_TAG>`
+- To deploy , execute - `make deploy IMG=<YOUR_REPO>/aws-auth-operator:<YOUR_TAG>`
 - This would deploy the operator to the cluster-context set at ~/.kube/config.
 
 If you need to see the manifests that are being deployed , run:
 
-`make gentest IMG=<YOUR_REPO>/rbac_op:<YOUR_TAG>`
+`make gentest IMG=<YOUR_REPO>/aws-auth-operator:<YOUR_TAG>`
    
 #### Notes:
 - Operator matches the given inputs with the already configured configMap and performs the necessary "inserts" or "updates".
