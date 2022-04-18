@@ -6,8 +6,8 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: aws-auth-operator-leader-election-role
+  name: {{ .Release.Name }}-leader-election-role
 subjects:
 - kind: ServiceAccount
-  name: aws-auth-operator-controller-manager
-  namespace: aws-auth-operator-system
+  name: {{ .Release.Name }}-controller-manager
+  namespace: {{ .Release.Namespace }}

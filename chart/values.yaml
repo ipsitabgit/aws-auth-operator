@@ -5,7 +5,7 @@ imagePullSecrets: []
 image:
   repository: ibhattacharya/aws-auth-controller
   # Overrides the image tag whose default is the chart appVersion.
-  tag: beta.2
+  tag: v1.0-master
 
 rbacproxy:
   repository: gcr.io/kubebuilder/kube-rbac-proxy
