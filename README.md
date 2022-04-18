@@ -19,7 +19,7 @@ This is a custom K8s operator which helps manage updates to the "aws-auth" confi
 
     ```
 
-- Once the controller starts running , execute `kubectl apply -f samples/sample.yaml` . This deploys the `EksAuthMap` custom resource. `YOUR_AWS_ACCOUNT` should be subsitituted with the proper AWS Account.
+- Once the controller starts running , execute `kubectl apply -f samples/sample.yaml` . This deploys the `EksAuthMap` custom resource. `[YOUR_AWS_ACCOUNT]` should be subsitituted with the proper AWS Account.
 - Check the logs of the controller and should see the reconcile operation
 
   ```
