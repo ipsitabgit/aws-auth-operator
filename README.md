@@ -27,22 +27,22 @@ This is a custom K8s operator which helps manage updates to the "aws-auth" confi
     2022/04/12 07:47:32 false
     2022/04/12 07:47:32 RECONCILER: FETCHING EXISTING aws-auth CONFIGMAP
     2022/04/12 07:47:32 RECONCILER: Unmarshalling aws-auth CONFIGMAP
-    2022/04/12 07:47:32 [{arn:aws:iam::849180847351:role/sre-role sre-cluster-admin role [ADMIN] []} {arn:aws:iam::849180847351:role/hsre-role hsre-cluster-role role [READONLY] []} {arn:aws:iam::849180847351:role/cd-jenkins-role cd-jenkins role [ADMIN] []} {arn:aws:iam::849180847351:role/app-dev app-dev role [NSADMIN READONLY] [web app]} {arn:aws:iam::849180847351:role/app-architects architects role [WRITE group2] []} {arn:aws:iam::849180847351:user/ops-user ops-user user [ADMIN] []} {arn:aws:iam::849180847351:user/ops-user ops-user user [my-custom-group group2] []}]
+    2022/04/12 07:47:32 [{arn:aws:iam::8491xxxx47351:role/sre-role sre-cluster-admin role [ADMIN] []} {arn:aws:iam::8491xxxx47351:role/hsre-role hsre-cluster-role role [READONLY] []} {arn:aws:iam::849180847351:role/cd-jenkins-role cd-jenkins role [ADMIN] []} {arn:aws:iam::8491xxxx47351:role/app-dev app-dev role [NSADMIN READONLY] [web app]} {arn:aws:iam::8491xxxx47351:role/app-architects architects role [WRITE group2] []} {arn:aws:iam::8491xxxx47351:user/ops-user ops-user user [ADMIN] []} {arn:aws:iam::8491xxxx47351:user/ops-user ops-user user [my-custom-group group2] []}]
     2022/04/12 07:47:32 RECONCILER: ITERATING THROUGH ALL THE RBAC CONFIGS
-    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:role/sre-role ~ UserName: sre-cluster-admin
+    2022/04/12 07:47:32 ARN: arn:aws:iam::8491xxxx47351:role/sre-role ~ UserName: sre-cluster-admin
     2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
     2022/04/12 07:47:32 RECONCILER: Adding provided roles to mapRoles
-    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:role/hsre-role ~ UserName: hsre-cluster-role
+    2022/04/12 07:47:32 ARN: arn:aws:iam::8491xxxx47351:role/hsre-role ~ UserName: hsre-cluster-role
     2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
     2022/04/12 07:47:32 createClusterRole: Creating the ClusterRole:application-ro-cluster-role
     2022/04/12 07:47:32 clusterroles.rbac.authorization.k8s.io "application-ro-cluster-role" already exists
     2022/04/12 07:47:32 createClusterRoleBinding: Creating the clusterrolebinding:application-ro-cluster-role-binding
     2022/04/12 07:47:32 clusterroles.rbac.authorization.k8s.io "application-ro-cluster-role" already exists
     2022/04/12 07:47:32 RECONCILER: Adding provided roles to mapRoles
-    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:role/cd-jenkins-role ~ UserName: cd-jenkins
+    2022/04/12 07:47:32 ARN: arn:aws:iam::8491xxxx47351:role/cd-jenkins-role ~ UserName: cd-jenkins
     2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
     2022/04/12 07:47:32 RECONCILER: Adding provided roles to mapRoles
-    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:role/app-dev ~ UserName: app-dev
+    2022/04/12 07:47:32 ARN: arn:aws:iam::8491xxxx47351:role/app-dev ~ UserName: app-dev
     2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
     2022/04/12 07:47:32 Reconcile: Creating Provided Namespaces
     2022/04/12 07:47:32 createNamespace: Creating the namespace:web
@@ -67,16 +67,16 @@ This is a custom K8s operator which helps manage updates to the "aws-auth" confi
     2022/04/12 07:47:32 createClusterRoleBinding: Creating the clusterrolebinding:application-ro-cluster-role-binding
     2022/04/12 07:47:32 clusterroles.rbac.authorization.k8s.io "application-ro-cluster-role" already exists
     2022/04/12 07:47:32 RECONCILER: Adding provided roles to mapRoles
-    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:role/app-architects ~ UserName: architects
+    2022/04/12 07:47:32 ARN: arn:aws:iam::8491xxxx47351:role/app-architects ~ UserName: architects
     2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
     2022/04/12 07:47:32 createClusterRoleBinding: Creating the clusterrolebinding:application-edit-cluster-role-binding
     2022/04/12 07:47:32 <nil>
     2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
     2022/04/12 07:47:32 RECONCILER: Adding provided roles to mapRoles
-    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:user/ops-user ~ UserName: ops-user
+    2022/04/12 07:47:32 ARN: arn:aws:iam::8491xxxx47351:user/ops-user ~ UserName: ops-user
     2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
     2022/04/12 07:47:32 RECONCILER: Adding provided users to mapUsers
-    2022/04/12 07:47:32 ARN: arn:aws:iam::849180847351:user/ops-user ~ UserName: ops-user
+    2022/04/12 07:47:32 ARN: arn:aws:iam::8491xxxx47351:user/ops-user ~ UserName: ops-user
     2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
     2022/04/12 07:47:32 RECONCILER: VALIDATED GROUPS FROM GIVEN LIST
     2022/04/12 07:47:32 RECONCILER: Adding provided users to mapUsers
