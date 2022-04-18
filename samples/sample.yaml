@@ -4,22 +4,22 @@ metadata:
   name: my-rbac
 spec:
   config:
-    - arn: "arn:aws:iam::849180847351:role/sre-role"
+    - arn: "arn:aws:iam::[YOUR_AWS_ACCOUNT]:role/sre-role"
       username: "sre-cluster-admin"
       type: "role"
       groups:
       - "ADMIN"
-    - arn: "arn:aws:iam::849180847351:role/hsre-role"
+    - arn: "arn:aws:iam::[YOUR_AWS_ACCOUNT]:role/hsre-role"
       username: "hsre-cluster-role"
       type: "role"
       groups:
       - "READONLY"
-    - arn: "arn:aws:iam::849180847351:role/cd-jenkins-role"
+    - arn: "arn:aws:iam::[YOUR_AWS_ACCOUNT]:role/cd-jenkins-role"
       username: "cd-jenkins"
       type: "role"
       groups:
       - "ADMIN"
-    - arn: "arn:aws:iam::849180847351:role/app-dev"
+    - arn: "arn:aws:iam::[YOUR_AWS_ACCOUNT]:role/app-dev"
       username: "app-dev"
       type: "role"
       groups:
@@ -28,18 +28,18 @@ spec:
       namespaces:
       - web
       - app     
-    - arn: "arn:aws:iam::849180847351:role/app-architects"
+    - arn: "arn:aws:iam::[YOUR_AWS_ACCOUNT]:role/app-architects"
       username: "architects"
       type: "role"
       groups:
       - "WRITE"  
       - "group2"          
-    - arn: "arn:aws:iam::849180847351:user/ops-user"
+    - arn: "arn:aws:iam::[YOUR_AWS_ACCOUNT]:user/ops-user"
       username: "ops-user"
       type: "user"
       groups:
       - "ADMIN" 
-    - arn: "arn:aws:iam::849180847351:user/ops-user"
+    - arn: "arn:aws:iam::[YOUR_AWS_ACCOUNT]:user/ops-user"
       username: "ops-user"
       type: "user"
       groups:
